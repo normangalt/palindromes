@@ -23,11 +23,11 @@ class Palindrome:
         with open(path, 'r', encoding='utf-8') as vocabulary:
             for word in vocabulary.readlines():
                 if '+cs=' in word:
-                    new_word = word[word.find('+cs=')+3:]
-
+                    new_word = word[word.find('+cs=')+4:].split()[0].strip()
+                    print(new_word)
 
                 else:
-                    new_word = word[:word.find(' ')] + '\n'
+                    new_word = word.split()[0].strip()
 
                 words.append(new_word)
 
@@ -50,7 +50,7 @@ class Palindrome:
         for index in range(ceiled_half):
             word_stack.push(word[index])
 
-        for index in range(ceiled_half, 0, -1):
+        for index in range(ceiled_half-1, -1, -1):
             letter_stack = word_stack.pop()
             word_letter = word[-1-index]
             if letter_stack != word_letter:
@@ -101,4 +101,9 @@ class Palindrome:
         """
         with open(file_name, 'w', encoding = 'utf-8') as file:
             for word in palindromes:
-                file.write(word)
+                file.write(word + '\n')
+
+if __name__ == '__main__':
+    palindrome = Palindrome()
+    palindrome.find_palindromes("base.lst", "palindrome_uk.txt")
+    palindrome.find_palindromes("words.txt", "palindrome_en.txt")
